@@ -1,62 +1,103 @@
+import { useState } from "react";
+
 function App() {
+  const [submitted, setSubmitted] = useState(false);
+
+  const [request, setRequest] = useState({
+    name: "",
+    phone: "",
+    year: "",
+    make: "",
+    issue: "",
+    priority: "",
+  });
+
+  function handleChange(e) {
+    setRequest({
+      ...request,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    setSubmitted(true);
+  }
+
   return (
     <div className="app">
       <h1>🔧 MobileWrench</h1>
-      <h2>Request a Mobile Mechanic</h2>
 
-      <form>
-        <label>
-          Your Name
-          <input type="text" placeholder="Enter your name" />
-        </label>
+      {!submitted ? (
+        <>
+          <h2>Request a Mobile Mechanic</h2>
 
-        <label>
-          Phone Number
-          <input type="text" placeholder="Enter phone number" />
-        </label>
+          <form onSubmit={handleSubmit}>
+            <input
+              name="name"
+              placeholder="Your Name"
+              value={request.name}
+              onChange={handleChange}
+            />
 
-        <label>
-          Vehicle Year
-          <input type="text" placeholder="Example: 2018" />
-        </label>
+            <input
+              name="phone"
+              placeholder="Phone Number"
+              value={request.phone}
+              onChange={handleChange}
+            />
 
-        <label>
-          Vehicle Make
-          <select>
-            <option>Select Make</option>
-            <option>Ford</option>
-            <option>Chevrolet</option>
-            <option>Toyota</option>
-            <option>Honda</option>
-            <option>Dodge</option>
-          </select>
-        </label>
+            <input
+              name="year"
+              placeholder="Vehicle Year"
+              value={request.year}
+              onChange={handleChange}
+            />
 
-        <label>
-          Problem
-          <select>
-            <option>Select Issue</option>
-            <option>Won't Start</option>
-            <option>Overheating</option>
-            <option>Brake Problem</option>
-            <option>Battery Issue</option>
-            <option>Check Engine Light</option>
-          </select>
-        </label>
+            <select name="make" onChange={handleChange}>
+              <option value="">Select Vehicle Make</option>
+              <option>Ford</option>
+              <option>Chevrolet</option>
+              <option>Toyota</option>
+              <option>Honda</option>
+              <option>Dodge</option>
+            </select>
 
-        <label>
-          Priority Level
-          <select>
-            <option>Normal</option>
-            <option>Urgent</option>
-            <option>Emergency</option>
-          </select>
-        </label>
+            <select name="issue" onChange={handleChange}>
+              <option value="">Select Problem</option>
+              <option>Won't Start</option>
+              <option>Overheating</option>
+              <option>Brake Problem</option>
+              <option>Battery Issue</option>
+              <option>Check Engine Light</option>
+            </select>
 
-        <button type="submit">
-          Find a Mechanic
-        </button>
-      </form>
+            <select name="priority" onChange={handleChange}>
+              <option value="">Priority Level</option>
+              <option>Normal</option>
+              <option>Urgent</option>
+              <option>Emergency</option>
+            </select>
+
+            <button type="submit">
+              Find a Mechanic
+            </button>
+          </form>
+        </>
+      ) : (
+        <div>
+          <h2>✅ Request Submitted</h2>
+
+          <p>Name: {request.name}</p>
+          <p>Vehicle: {request.year} {request.make}</p>
+          <p>Problem: {request.issue}</p>
+          <p>Priority: {request.priority}</p>
+
+          <button onClick={() => setSubmitted(false)}>
+            Create New Request
+          </button>
+        </div>
+      )}
     </div>
   );
 }
