@@ -4,6 +4,7 @@ import MechanicDashboard from "./MechanicDashboard";
 
 function App() {
   const [role, setRole] = useState("");
+  const [request, setRequest] = useState(null);
 
   return (
     <div className="app">
@@ -27,7 +28,7 @@ function App() {
 
       {role === "customer" && (
         <>
-          <CustomerRequest />
+          <CustomerRequest setRequest={setRequest} />
 
           <button onClick={() => setRole("")}>
             Back
@@ -37,7 +38,7 @@ function App() {
 
       {role === "mechanic" && (
         <>
-          <MechanicDashboard />
+          <MechanicDashboard request={request} />
 
           <button onClick={() => setRole("")}>
             Back

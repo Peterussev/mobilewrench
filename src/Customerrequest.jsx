@@ -1,10 +1,11 @@
 import { useState } from "react";
 
-function CustomerRequest() {
+function CustomerRequest({ setRequest }) {
+
   const [submitted, setSubmitted] = useState(false);
   const [location, setLocation] = useState("");
 
-  const [request, setRequest] = useState({
+  const [request, setRequestForm] = useState({
     name: "",
     phone: "",
     address: "",
@@ -15,7 +16,7 @@ function CustomerRequest() {
   });
 
   function handleChange(e) {
-    setRequest({
+    setRequestForm({
       ...request,
       [e.target.name]: e.target.value,
     });
@@ -23,7 +24,7 @@ function CustomerRequest() {
 
   function getLocation() {
     if (!navigator.geolocation) {
-      alert("GPS is not supported on this device");
+      alert("GPS not supported");
       return;
     }
 
@@ -34,19 +35,28 @@ function CustomerRequest() {
         );
       },
       () => {
-        alert("Unable to get your location");
+        alert("Unable to get location");
       }
     );
   }
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    setRequest({
+      ...request,
+      location,
+    });
+
     setSubmitted(true);
   }
 
+
   return (
     <div>
+
       {!submitted ? (
+
         <>
           <h1>🚗 Customer Request</h1>
 
@@ -79,6 +89,7 @@ function CustomerRequest() {
 
             {location && <p>{location}</p>}
 
+
             <input
               name="year"
               placeholder="Vehicle Year"
@@ -86,14 +97,16 @@ function CustomerRequest() {
               onChange={handleChange}
             />
 
+
             <select name="make" onChange={handleChange}>
-              <option value="">Select Vehicle Make</option>
+              <option value="">Select Make</option>
               <option>Ford</option>
               <option>Chevrolet</option>
               <option>Toyota</option>
               <option>Honda</option>
               <option>Dodge</option>
             </select>
+
 
             <select name="issue" onChange={handleChange}>
               <option value="">Select Problem</option>
@@ -104,12 +117,14 @@ function CustomerRequest() {
               <option>Check Engine Light</option>
             </select>
 
+
             <select name="priority" onChange={handleChange}>
-              <option value="">Priority Level</option>
+              <option value="">Priority</option>
               <option>Normal</option>
               <option>Urgent</option>
               <option>Emergency</option>
             </select>
+
 
             <button type="submit">
               Find a Mechanic
@@ -117,24 +132,21 @@ function CustomerRequest() {
 
           </form>
         </>
+
       ) : (
+
         <>
           <h2>✅ Request Submitted</h2>
 
-          <p>Name: {request.name}</p>
-          <p>Address: {request.address}</p>
-          <p>{location}</p>
-          <p>
-            Vehicle: {request.year} {request.make}
-          </p>
-          <p>Problem: {request.issue}</p>
-          <p>Priority: {request.priority}</p>
+          <p>Your request has been sent to mechanics.</p>
 
           <button onClick={() => setSubmitted(false)}>
             New Request
           </button>
         </>
+
       )}
+
     </div>
   );
 }
