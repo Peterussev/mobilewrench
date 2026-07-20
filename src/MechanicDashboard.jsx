@@ -1,54 +1,73 @@
 function MechanicDashboard({ request }) {
 
   return (
-    <div>
+    <div className="mechanic-dashboard">
 
       <h1>🔧 Mechanic Dashboard</h1>
 
-
       {!request ? (
 
-        <p>No customer requests available.</p>
+        <div>
+          <h2>No Jobs Available</h2>
+          <p>New customer requests will appear here.</p>
+        </div>
 
       ) : (
 
-        <>
-          <h2>New Job Request</h2>
+        <div className="job-card">
+
+          <h2>🚨 New Service Request</h2>
+
+          <hr />
+
+          <h3>Customer Information</h3>
 
           <p>
-            Customer: {request.name}
+            <strong>Name:</strong> {request.name}
           </p>
 
           <p>
-            Phone: {request.phone}
+            <strong>Phone:</strong> {request.phone}
           </p>
 
           <p>
-            Address: {request.address}
+            <strong>Address:</strong> {request.address}
           </p>
 
-          <p>
-            Vehicle: {request.year} {request.make}
-          </p>
+
+          <h3>Vehicle</h3>
 
           <p>
-            Issue: {request.issue}
+            🚗 {request.year} {request.make}
           </p>
 
-          <p>
-            Priority: {request.priority}
-          </p>
+
+          <h3>Problem</h3>
 
           <p>
-            Location: {request.location}
+            ⚠️ {request.issue}
+          </p>
+
+
+          <h3>Priority</h3>
+
+          <p>
+            🔥 {request.priority}
+          </p>
+
+
+          <h3>Location</h3>
+
+          <p>
+            📍 {request.location}
           </p>
 
 
           <button>
-            Accept Job
+            ✅ Accept Job
           </button>
 
-        </>
+        </div>
 
       )}
 
