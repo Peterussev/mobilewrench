@@ -1,12 +1,15 @@
 import { useState } from "react";
 import CustomerRequest from "./Customerrequest";
 import MechanicDashboard from "./MechanicDashboard";
+import MechanicProfile from "./MechanicProfile";
 
 function App() {
 
   const [page, setPage] = useState("home");
 
   const [jobs, setJobs] = useState([]);
+
+  const [mechanicProfile, setMechanicProfile] = useState(null);
 
 
   function addJob(newJob) {
@@ -17,12 +20,14 @@ function App() {
       ...newJob,
     };
 
+
     setJobs([
       ...jobs,
       job
     ]);
 
   }
+
 
 
   return (
@@ -50,10 +55,9 @@ function App() {
           <br />
 
 
-          <button onClick={() => setPage("mechanic")}>
+          <button onClick={() => setPage("mechanicProfile")}>
             🔧 I Am a Mechanic
           </button>
-
 
         </>
 
@@ -72,11 +76,36 @@ function App() {
 
           <br />
 
-
           <button onClick={() => setPage("home")}>
             Back
           </button>
 
+        </>
+
+      )}
+
+
+
+      {page === "mechanicProfile" && (
+
+        <>
+
+          <MechanicProfile />
+
+          <br />
+
+
+          <button onClick={() => setPage("mechanic")}>
+            Continue to Dashboard
+          </button>
+
+
+          <br /><br />
+
+
+          <button onClick={() => setPage("home")}>
+            Back
+          </button>
 
         </>
 

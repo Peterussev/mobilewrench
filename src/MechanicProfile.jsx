@@ -12,21 +12,17 @@ function MechanicProfile() {
 
 
   function handleChange(e) {
-
     setProfile({
       ...profile,
       [e.target.name]: e.target.value,
     });
-
   }
 
 
   return (
-
     <div className="mechanic-profile">
 
       <h1>🔧 Mechanic Profile</h1>
-
 
       <input
         name="name"
@@ -35,14 +31,12 @@ function MechanicProfile() {
         onChange={handleChange}
       />
 
-
       <input
         name="company"
         placeholder="Company Name"
         value={profile.company}
         onChange={handleChange}
       />
-
 
       <input
         name="phone"
@@ -51,7 +45,6 @@ function MechanicProfile() {
         onChange={handleChange}
       />
 
-
       <input
         name="services"
         placeholder="Services Offered"
@@ -59,43 +52,15 @@ function MechanicProfile() {
         onChange={handleChange}
       />
 
-
       <input
         name="radius"
-        placeholder="Service Radius (miles)"
+        placeholder="Service Radius"
         value={profile.radius}
         onChange={handleChange}
       />
 
-
-      <h2>Preview</h2>
-
-      <p>
-        🔧 {profile.name}
-      </p>
-
-      <p>
-        🏢 {profile.company}
-      </p>
-
-      <p>
-        📞 {profile.phone}
-      </p>
-
-      <p>
-        🛠 {profile.services}
-      </p>
-
-      <p>
-        📍 {profile.radius} miles
-      </p>
-
-
     </div>
-
   );
-
 }
-
 
 export default MechanicProfile;
